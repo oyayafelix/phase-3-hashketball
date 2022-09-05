@@ -1,4 +1,5 @@
 # Write your code below game_hash
+require "pry"
 def game_hash
   {
     home: {
@@ -127,3 +128,96 @@ def game_hash
 end
 
 # Write code here
+def num_points_scored player_name
+  game_hash.each do |location, team_data|
+    team_data.each do |attribute, data|
+      if attribute==:players
+        data.each do |player| 
+          if player[:player_name] == player_name
+            return player[:points]
+          end
+        end
+      end
+    end
+  end
+end
+
+def shoe_size player_name
+  game_hash.each do |location, team_data|
+    team_data.each do |attribute, data|
+      if attribute==:players
+        data.each do |player| 
+          if player[:player_name] == player_name
+            return player[:shoe]
+          end
+        end
+      end
+    end
+  end
+end
+
+def team_colors team_name
+  game_hash.each do |location, team_data|
+    team_data.each do |attribute, data|
+      if attribute==:team_name && data == team_name
+        return team_data[:colors]
+      end
+    end
+  end
+end
+
+def team_names
+  names = []
+  game_hash.each do |location, team_data|
+    team_data.each do |attribute, data|
+      if attribute==:team_name 
+        names.push(data)
+      end
+    end
+  end
+  names
+end
+
+def player_numbers team_name
+  numbers = []
+  game_hash.each do |location, team_data|
+    team_data.each do |attribute, data|
+      if attribute==:team_name && data==team_name
+        team_data[:players].each do |player| 
+          numbers.push(player[:number])
+        end
+      end
+    end
+  end
+  numbers
+end
+
+def player_stats player_name
+  game_hash.each do |location, team_data|
+    team_data.each do |attribute, data|
+      if attribute==:players
+        data.each do |player| 
+          if player[:player_name] == player_name
+            return player
+          end
+        end
+      end
+    end
+  end
+end
+
+def big_shoe_rebounds
+  big_shoe={shoe:0}
+  game_hash.each do |location, team_data|
+    team_data.each do |attribute, data|
+      if attribute==:players
+        data.each do |player| 
+          if player[:shoe] > big_shoe[:shoe]
+            big_shoe = player
+          end
+        end
+      end
+    end
+  end
+  big_shoe[:rebounds]
+end
